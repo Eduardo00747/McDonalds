@@ -4,11 +4,12 @@ import ProductHeader from "./components/product-header";
 import ProductDetails from "./components/product-details";
 
 interface ProductPageProps {
-  params: Promise<{ slug: string; productid: string }>;
+  params: { slug: string; productid: string };
 }
 
 const ProductPage = async ({ params }: ProductPageProps) => {
-  const { slug, productid } = await params;
+  const { slug, productid } = params; // ✅ Correção aqui!
+
   const product = await db.product.findUnique({
     where: { id: productid },
     include: {
@@ -21,10 +22,13 @@ const ProductPage = async ({ params }: ProductPageProps) => {
       },
     },
   });
+
   if (!product) {
     return notFound();
   }
-  if (product.restaurant.slug.toUpperCase() === slug.toUpperCase()) {
+
+  // ⚠️ Erro de Lógica: Condição invertida!
+  if (product.restaurant.slug.toUpperCase() !== slug.toUpperCase()) {
     return notFound();
   }
 
