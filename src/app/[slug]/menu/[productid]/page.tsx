@@ -4,11 +4,11 @@ import ProductHeader from "./components/product-header";
 import ProductDetails from "./components/product-details";
 
 interface ProductPageProps {
-  params: { slug: string; productid: string };
+  params: Promise<{ slug: string; productid: string }>;
 }
 
 const ProductPage = async ({ params }: ProductPageProps) => {
-  const { slug, productid } = params; // ✅ Correção aqui!
+  const { slug, productid } = await params; // ✅ Correção aqui!
 
   const product = await db.product.findUnique({
     where: { id: productid },
