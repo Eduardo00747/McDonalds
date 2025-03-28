@@ -12,6 +12,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Mc Donald's",
   description: "Toténs de pedido de Mc Donald's",
+  icons: "/z_mcdonalds_burger_logo_brand_icon_133252.ico", // Caminho para o favicon
 };
 
 export default function RootLayout({
@@ -21,6 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          type="image/ico"
+          href="/z_mcdonalds_burger_logo_brand_icon_133252.ico"
+        />
+      </head>
       <body className={`${poppins.className} antialiased`}>
         <CartProvider>{children}</CartProvider>
         <Toaster />
